@@ -213,6 +213,14 @@ def create_support_router(config: SupportConfig, service: SupportService | None 
         key = StorageKey(bot_id=bot.id, chat_id=user_id, user_id=user_id)
         await FSMContext(storage=fsm_storage, key=key).set_state(state)
 
+    @router.message(F.chat.id == config.support_chat_id)
+    async def swallow_support_chat(message: Message) -> None:
+        """Stop here: nothing in the support group is meant for the host bot.
+
+        Without this, chatter in the group's General section reaches handlers
+        written for private chats — a pasted link read as user input, and so on.
+        """
+
     # ------------------------------------------------------------------- user
 
     @router.message(Command(config.entry_command))
