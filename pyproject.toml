@@ -1,0 +1,21 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "tg-support"
+version = "0.1.0"
+description = "Support channel for aiogram bots: one forum topic per user in a shared Telegram supergroup"
+readme = "README.md"
+requires-python = ">=3.11"
+license = { text = "MIT" }
+dependencies = [
+    "aiogram>=3.15,<4",
+    "SQLAlchemy[asyncio]>=2.0",
+]
+
+[project.optional-dependencies]
+sqlite = ["aiosqlite>=0.20"]
+
+[tool.setuptools.packages.find]
+include = ["tg_support*"]
